@@ -1,21 +1,27 @@
-# Ignore model file
-plant_disease_model_1_latest.pt
+
+# AI model files
+*.pt
+*.pth
 
 # Virtual environments
+.venv/
 venv/
 env/
 rahul/
 
 # Python cache
 __pycache__/
-*.pyc
+*.py[cod]
 
-# IDE & system files
+# Environment secrets
+.env
+
+# IDE and system files
 .vscode/
 .DS_Store
 Thumbs.db
 
-# Binaries
+# Binary files
 *.dll
 *.lib
 *.exe
