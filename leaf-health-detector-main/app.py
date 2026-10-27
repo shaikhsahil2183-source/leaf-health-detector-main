@@ -1,5 +1,5 @@
 from pathlib import Path
-from flask import Flask, redirect, render_template, request
+from flask import Flask, render_template, request
 from PIL import Image
 import torchvision.transforms.functional as TF
 import CNN
@@ -33,16 +33,22 @@ model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
 model.eval()
 
 # Function to make predictions
+
 def prediction(image_path):
     image = Image.open(image_path).convert('RGB')
     image = image.resize((224, 224))
-    input_data = TF.to_tensor(image)
-    input_data = input_data.unsqueeze(0)
+    input_data = TF.to_tensor(image).unsqueeze(0)
+
     with torch.no_grad():
         output = model(input_data)
-    output = output.detach().numpy()
-    index = np.argmax(output)
-    return index
+        probabilities = torch.softmax(output, dim=1)[0]
+        top_values, top_indices = torch.topk(probabilities, 5)
+
+    print("\n--- TOP 5 PREDICTIONS ---")
+    for score, idx in zip(top_values.tolist(), top_indices.tolist()):
+        print(CNN.idx_to_classes[idx], f"{score * 100:.2f}%")
+
+    return int(torch.argmax(output, dim=1).item())
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -98,9 +104,7 @@ def market():
 
 @app.errorhandler(404)
 def handle_404(e):
-    if request.path.startswith('/hybridaction/'):
-        return '', 204  # Cleanly ignore bot/extension hits
-    return render_template('404.html'), 404
+    return "Page not found", 404
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

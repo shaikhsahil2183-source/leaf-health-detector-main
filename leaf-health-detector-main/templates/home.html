@@ -1,153 +1,179 @@
+
 {% extends 'base.html' %}
+
 {% block pagetitle %}
 Plant Disease Detection
 {% endblock pagetitle %}
+
 {% block body %}
 <style>
-  body{
-    overflow-x: hidden;
-  }
-  @media only screen and (max-width: 830px) {
-    .laptop{
-      display: none;
+    body {
+        overflow-x: hidden;
+        background: linear-gradient(135deg, #f0fdf4, #f8fafc);
+        color: #1f2937;
+        font-family: 'Segoe UI', Arial, sans-serif;
     }
-  }
-  @media (min-width:830px) and (max-width: 1536px){
-    .mobile{
-      display: none;
+
+    /* Main heading */
+    .laptop h1 {
+        color: #14532d !important;
+        font-weight: 750 !important;
+        letter-spacing: -1px;
+        margin-bottom: 15px;
     }
-  }
+
+    .laptop .lead {
+        color: #475569 !important;
+        font-size: 1.1rem;
+    }
+
+    /* AI Engine button */
+    .bttn-pill {
+        background: linear-gradient(135deg, #15803d, #16a34a);
+        border: none;
+        border-radius: 50px;
+        padding: 13px 32px;
+        box-shadow: 0 6px 18px rgba(22, 163, 74, 0.22);
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .bttn-pill:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 24px rgba(22, 163, 74, 0.35);
+        background: #166534;
+    }
+
+    .bttn-pill b {
+        color: white !important;
+        font-size: 17px;
+    }
+
+    /* Plant and fruit cards */
+    .laptop .row.p-5 > .col,
+    .laptop .row.p-5 > .col-lg-10 {
+        margin-bottom: 22px;
+    }
+
+    .laptop .shadow.rounded-lg {
+        width: 100% !important;
+        height: 100% !important;
+        box-sizing: border-box;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px !important;
+        overflow: hidden;
+        transition: transform 0.3s ease,
+                    box-shadow 0.3s ease;
+    }
+
+    .laptop .shadow.rounded-lg:hover {
+        transform: translateY(-7px);
+        box-shadow: 0 14px 30px rgba(22, 101, 52, 0.13) !important;
+        border-color: #86efac;
+    }
+
+    .laptop .shadow.rounded-lg img {
+        display: block;
+        width: 100%;
+        max-width: 250px;
+        height: 210px;
+        object-fit: cover;
+        margin: 0 auto;
+        border-radius: 12px;
+        transition: transform 0.4s ease;
+    }
+
+    .laptop .shadow.rounded-lg:hover img {
+        transform: scale(1.04);
+    }
+
+    .laptop .shadow.rounded-lg p {
+        font-weight: 650 !important;
+        color: #166534 !important;
+        margin: 15px 0 5px;
+    }
+
+    /* Better spacing */
+    .laptop.row.p-5,
+    .row.p-5.laptop {
+        row-gap: 22px;
+    }
+
+    /* Mobile notice */
+    .mobile {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f0fdf4;
+    }
+
+    .mobile h1 {
+        color: #b91c1c !important;
+    }
+
+    /* Responsive layout */
+    @media (max-width: 829px) {
+        .laptop {
+            display: none !important;
+        }
+
+        .mobile {
+            display: flex;
+        }
+    }
+
+    @media (min-width: 830px) {
+        .mobile {
+            display: none !important;
+        }
+
+        .laptop {
+            display: block;
+        }
+
+        .laptop.row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+
+    /* Accessibility: reduce animation if requested */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            transition: none !important;
+            animation: none !important;
+        }
+    }
 </style>
-<div class='mobile p-5'>
-  <div class="row mb-5 text-center text-white">
-    <div class="col-lg-10 mx-auto">
-      <h1 class="display-4" style="padding-top: 2%;font-weight: 400;color:red;"><b>Note✍🏻</b></h1>
-      <p class="lead" style="font-weight: 500;color: black;">Please🙏 Open This Site On Laptop/PC 💻 Screen Only</p>
-      <p class="lead" style="font-weight: 500;color: black;">Thank You 🤝</p>    
-    </div>
-</div>
-</div>
 
-<div class="row mb-5 text-center text-white laptop">
-    <div class="col-lg-10 mx-auto">
-        <h1 class="display-4" style="padding-top: 2%;font-weight: 400;color: rgb(4, 54, 4);"><b>🍁Plant Disease
-                Detection🍁 </b></h1>
-        <p class="lead" style="font-weight: 500;color: black;">This AI Engine Will Help To Detect Disease From Following Fruites And Veggies</p>
-    </div>
-</div>
-
-<center class="laptop">
-    <a href="/index">
-    <button class = "bttn-pill bttn-lg btn-success"><b style="color: black;">AI Engine</b></button>
-</a>
-</center>
-<div class="row p-5 laptop">
-    <div class=" col">
-        <div class="p-3 bg-white shadow rounded-lg" style="width: 90%;height: 92%;">
-          <img src="https://post.healthline.com/wp-content/uploads/2020/09/Do_Apples_Affect_Diabetes_and_Blood_Sugar_Levels-732x549-thumbnail-1-732x549.jpg" width="250" height="250">
-          <center><p class="lead" style="font-weight: 500;color: black;">Apple</p></center>
+<main class="container py-4">
+    <section class="mobile">
+        <div class="text-center p-4">
+            <h1>Plant Disease Detection</h1>
+            <p class="lead">Open the AI Engine to check a leaf for signs of disease.</p>
+            <a class="btn btn-success" href="/index">Open AI Engine</a>
         </div>
-    </div>
-    <div class="col">
-        <div class="p-3 bg-white shadow rounded-lg" style="width: 90%;height: 92%;">
+    </section>
 
-          <img src="https://www.supermarketperimeter.com/ext/resources/0430-blueberries.png?t=1588260305&width=1080" width="250" height="250">
-          <center><p class="lead" style="font-weight: 500;color: black;">Blueberry</p></center>
+    <section class="laptop">
+        <header class="text-center py-4">
+            <h1 class="display-4">Plant Disease Detection</h1>
+            <p class="lead">Use the AI engine to help identify diseases in common fruits and vegetables.</p>
+            <a class="bttn-pill btn btn-success" href="/index"><b>Open AI Engine</b></a>
+        </header>
+
+        <div class="row p-5">
+            {% for plant in ['Apple', 'Blueberry', 'Cherry', 'Corn', 'Grape', 'Orange', 'Peach', 'Pepper Bell', 'Potato', 'Raspberry', 'Soybean', 'Squash', 'Strawberry', 'Tomato'] %}
+            <div class="col-12 col-sm-6 col-lg-3 mb-4">
+                <div class="p-4 bg-white shadow rounded-lg text-center">
+                    <p>{{ plant }}</p>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-    </div>
-    <div class=" col">
-        <div class="p-3 bg-white shadow rounded-lg" style="width: 90%;height: 92%;">
-
-          <img src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/slideshows/health_benefits_of_cherries_slideshow/1800x1200_health_benefits_of_cherries_slideshow.jpg" width="250" height="250">
-          <center><p class="lead" style="font-weight: 500;color: black;">Cherry</p></center>
-        </div>
-    </div>
-    <div class=" col">
-        <div class="p-3 bg-white shadow rounded-lg" style="width: 90%;height: 92%;">
-
-          <img src="https://www.shutterstock.com/image-photo/corn-cobs-farming-fields-during-600nw-2509533753.jpg" width="250" height="250">
-          <center><p class="lead" style="font-weight: 500;color: black;">Corn</p></center>
-        </div>
-    </div>
-</div>
-
-<div class="row p-5 laptop">
-    <div class=" col">
-        <div class="p-3 bg-white shadow rounded-lg" style="width: 90%;height: 92%;">
-          <img src="https://i.ndtvimg.com/i/2015-09/grapes_625x350_61443376353.jpg" width="250" height="250">
-          <center><p class="lead" style="font-weight: 500;color: black;">Grape</p></center>
-        </div>
-    </div>
-    <div class="col">
-        <div class="p-3 bg-white shadow rounded-lg" style="width: 90%;height: 92%;">
-
-          <img src="https://www.irishtimes.com/polopoly_fs/1.3923226.1560339148!/image/image.jpg_gen/derivatives/ratio_1x1_w1200/image.jpg" width="250" height="250">
-          <center><p class="lead" style="font-weight: 500;color: black;">Orange</p></center>
-        </div>
-    </div>
-    <div class=" col">
-        <div class="p-3 bg-white shadow rounded-lg" style="width: 90%;height: 92%;">
-
-          <img src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/articles/health_tools/the_health_benefits_of_peaches_slideshow/thinkstock_rf_peaches.jpg?resize=650px:*" width="250" height="250">
-          <center><p class="lead" style="font-weight: 500;color: black;">Peach</p></center>
-        </div>
-    </div>
-    <div class=" col">
-        <div class="p-3 bg-white shadow rounded-lg" style="width: 90%;height: 92%;">
-
-          <img src="https://images.healthshots.com/healthshots/en/uploads/2024/07/24112903/1-40.jpg" width="250" height="250">
-          <center><p class="lead" style="font-weight: 500;color: black;">Pepper Bell</p></center>
-        </div>
-    </div>
-</div>
-
-
-<div class="row p-5 laptop">
-    <div class=" col">
-        <div class="p-3 bg-white shadow rounded-lg" style="width: 90%;height: 92%;">
-          <img src="https://m.economictimes.com/thumb/height-450,width-600,imgsize-111140,msid-72862126/potato-getty.jpg" width="250" height="250">
-          <center><p class="lead" style="font-weight: 500;color: black;">Potato</p></center>
-        </div>
-    </div>
-    <div class="col">
-        <div class="p-3 bg-white shadow rounded-lg" style="width: 90%;height: 92%;">
-
-          <img src="https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/326/326272/raspberries-with-ketones-in-a-bowl.jpg?w=1155&h=1541" width="250" height="250">
-          <center><p class="lead" style="font-weight: 500;color: black;">Raspberry</p></center>
-        </div>
-    </div>
-    <div class=" col">
-        <div class="p-3 bg-white shadow rounded-lg" style="width: 90%;height: 92%;">
-
-          <img src="https://m.economictimes.com/thumb/msid-66988154,width-1200,height-900,resizemode-4,imgsize-211276/soyabean-agencies.jpg" width="250" height="250">
-          <center><p class="lead" style="font-weight: 500;color: black;">Soybean</p></center>
-        </div>
-    </div>
-    <div class=" col">
-        <div class="p-3 bg-white shadow rounded-lg" style="width: 90%;height: 92%;">
-
-          <img src="https://post.healthline.com/wp-content/uploads/2020/08/squash-fruit-or-vegetable-732x549-thumbnail-732x549.jpg" width="250" height="250">
-          <center><p class="lead" style="font-weight: 500;color: black;">Squash</p></center>
-        </div>
-    </div>
-</div>
-
-<center class="laptop">
-<div class="row p-5">
-    <div class=" col">
-        <div class="p-3 bg-white shadow rounded-lg" style="width: 45%;height: 92%;">
-          <img src="https://images.indianexpress.com/2020/02/strawberry-1200.jpg" width="250" height="250">
-          <center><p class="lead" style="font-weight: 500;color: black;">Strawberry</p></center>
-        </div>
-    </div>
-    <div class="col">
-        <div class="p-3 bg-white shadow rounded-lg" style="width: 45%;height: 92%;">
-
-          <img src="https://images-prod.healthline.com/hlcmsresource/images/AN_images/tomatoes-1296x728-feature.jpg" width="250" height="250">
-          <center><p class="lead" style="font-weight: 500;color: black;">Tomato</p></center>
-        </div>
-    </div>
-</div>
-</center>
-
+    </section>
+</main>
 {% endblock body %}
